@@ -1,19 +1,19 @@
 require('dotenv').config();
 
-var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
-var tone_analyzer = new ToneAnalyzerV3({
+const tone_analyzer = new ToneAnalyzerV3({
   username: process.env.WATSON_USERNAME,
   password: process.env.WATSON_PASSWORD,
   version_date: '2016-05-19'
 });
- 
-tone_analyzer.tone(
-  {
-    tone_input: 'Greetings from Watson Developer Cloud!',
-    content_type: 'text/plain'
-  },
-  (err, tone) => {
+
+const params = {
+  tone_input: 'Greetings from Watson Developer Cloud!',
+  content_type: 'text/plain'
+};
+
+tone_analyzer.tone(params, (err, tone) => {
     if (err) {
       console.error(err);
     } else {
