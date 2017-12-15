@@ -13,9 +13,9 @@ tone_analyzer.tone(
     tone_input: 'Greetings from Watson Developer Cloud!',
     content_type: 'text/plain'
   },
-  function(err, tone) {
+  (err, tone) => {
     if (err) {
-      console.log(err);
+      console.error(err);
     } else {
       console.log(JSON.stringify(tone, null, 2));
     }
