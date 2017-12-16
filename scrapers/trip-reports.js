@@ -17,7 +17,7 @@ const goToPageAndGetData = async (pageLink) => {
 
         tripReportData = tripReportRows.map((row) => {
           const date = row.querySelector('div.buttonf a').innerText;
-          const info = row.querySelector('td div:nth-child(2)').innerText;
+          const info = row.querySelector('td div:nth-child(2)').innerText.split("Info:").pop().slice(1);
           return {date, info};
         })
 
@@ -39,6 +39,7 @@ const data = pageLinks.reduce(async (acc, pageLink) => {
   dataArray.push(...result);
   return dataArray;
 }, Promise.resolve([]));
+
 
 data.then(result => {
   const output = JSON.stringify(result, null, 2);
