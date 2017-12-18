@@ -17,7 +17,7 @@ const tone_analyzer = new ToneAnalyzerV3({
 const params = {
   tone_input: infoTextBlock,
   content_type: 'text/plain',
-  sentences: false  
+  sentences: false
 };
 
 tone_analyzer.tone(params, (err, tone) => {

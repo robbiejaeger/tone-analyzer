@@ -13,15 +13,17 @@ const goToPageAndGetData = async (pageLink) => {
       .goto(pageLink)
       .wait('#main_list')
       .evaluate(() => {
+        const peakName = document.querySelector('.BldHdr2').innerText.trim();
+
         const tripReportRows = [...document.querySelectorAll('tr')].slice(2);
 
         tripReportData = tripReportRows.map((row) => {
           const date = row.querySelector('div.buttonf a').innerText;
-          const info = row.querySelector('td div:nth-child(2)').innerText.split("Info:").pop().slice(1);
-          return {date, info};
+          const report = row.querySelector('td div:nth-child(2)').innerText.split("Info:").pop().slice(1).trim();
+          return {date, report};
         })
 
-        return tripReportData;
+        return {peakName, tripReportData};
       })
       .end();
 
@@ -34,9 +36,9 @@ const goToPageAndGetData = async (pageLink) => {
 
 const data = pageLinks.reduce(async (acc, pageLink) => {
   const dataArray = await acc;
-  const result = await goToPageAndGetData(pageLink);
+  const peakReports = await goToPageAndGetData(pageLink);
 
-  dataArray.push(...result);
+  dataArray.push(peakReports);
   return dataArray;
 }, Promise.resolve([]));
 
