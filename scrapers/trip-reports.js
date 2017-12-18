@@ -2,7 +2,8 @@ const Nightmare = require('nightmare');
 const fs = require('fs');
 
 const pageLinks = [
-  'https://www.14ers.com/php14ers/peakstatus_peak.php?peakparm=500&type=14ers&start=0'
+  'https://www.14ers.com/php14ers/peakstatus_peak.php?peakparm=500&type=14ers&start=0',
+  'https://www.14ers.com/php14ers/peakstatus_peak.php?peakparm=110&type=14ers&start=0'
 ];
 
 const goToPageAndGetData = async (pageLink) => {
@@ -17,13 +18,13 @@ const goToPageAndGetData = async (pageLink) => {
 
         const tripReportRows = [...document.querySelectorAll('tr')].slice(2);
 
-        tripReportData = tripReportRows.map((row) => {
+        tripReports = tripReportRows.map((row) => {
           const date = row.querySelector('div.buttonf a').innerText;
           const report = row.querySelector('td div:nth-child(2)').innerText.split("Info:").pop().slice(1).trim();
           return {date, report};
         })
 
-        return {peakName, tripReportData};
+        return {peakName, tripReports};
       })
       .end();
 
