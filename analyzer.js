@@ -1,4 +1,5 @@
 require('dotenv').config();
+const fs = require('fs');
 
 const tripReportData = require('./data/trip-reports.json');
 
@@ -48,4 +49,11 @@ const groupedAnalysis = condensedPeakReports.reduce(async (acc, peak) => {
   return dataArray;
 }, Promise.resolve([]));
 
-groupedAnalysis.then(result => console.log(JSON.stringify(result, null, 2)))
+groupedAnalysis.then(result => {
+  const output = JSON.stringify(result, null, 2);
+
+  fs.writeFile('./data/tone-analysis.json', output, 'utf8', (err) => {
+    if (err) throw err;
+    console.log('File was saved.');
+  })
+})
