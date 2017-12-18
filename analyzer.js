@@ -4,7 +4,7 @@ const fs = require('fs');
 const tripReportData = require('./data/trip-reports.json');
 
 const condensedPeakReports = tripReportData.map((peak) => {
-  const condensedReports = peak.tripReportData.map((trip) => {
+  const condensedReports = peak.tripReports.map((trip) => {
     return trip.report;
   }).join(' ');
   return {name: peak.peakName, text: condensedReports};
@@ -41,6 +41,7 @@ const groupedAnalysis = condensedPeakReports.reduce(async (acc, peak) => {
   let peakToneAnalysis;
   try {
     peakToneAnalysis = await requestToneAnalysis(peak.text);
+    console.log(peak.name, 'analyzed.');
   } catch(e) {
     console.error(e);
   }
