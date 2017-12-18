@@ -37,7 +37,12 @@ const requestToneAnalysis = (text) => {
 
 const groupedAnalysis = condensedPeakReports.reduce(async (acc, peak) => {
   const dataArray = await acc;
-  const peakToneAnalysis = await requestToneAnalysis(peak.text);
+  let peakToneAnalysis;
+  try {
+    peakToneAnalysis = await requestToneAnalysis(peak.text);
+  } catch(e) {
+    console.error(e);
+  }
 
   dataArray.push({name: peak.name, toneAnalysis: peakToneAnalysis});
   return dataArray;
