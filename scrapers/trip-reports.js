@@ -17,7 +17,7 @@ const goToPageAndGetData = async (pageLink) => {
 
         tripReports = tripReportRows.map((row) => {
           const date = row.querySelector('div.buttonf a').innerText;
-          const report = row.querySelector('td div:nth-child(2)').innerText.split("Info:").pop().slice(1).trim();
+          const report = row.querySelector('td div:nth-child(2)').innerText.split('Info:').pop().slice(1).trim();
           return {date, report};
         })
 
