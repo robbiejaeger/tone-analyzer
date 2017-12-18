@@ -1,10 +1,7 @@
 const Nightmare = require('nightmare');
 const fs = require('fs');
 
-const pageLinks = [
-  'https://www.14ers.com/php14ers/peakstatus_peak.php?peakparm=500&type=14ers&start=0',
-  'https://www.14ers.com/php14ers/peakstatus_peak.php?peakparm=110&type=14ers&start=0'
-];
+const peakUrls = require('../data/peak-urls.js');
 
 const goToPageAndGetData = async (pageLink) => {
   try {
@@ -35,7 +32,7 @@ const goToPageAndGetData = async (pageLink) => {
 }
 
 
-const data = pageLinks.reduce(async (acc, pageLink) => {
+const data = peakUrls.reduce(async (acc, pageLink) => {
   const dataArray = await acc;
   const peakReports = await goToPageAndGetData(pageLink);
 
