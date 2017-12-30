@@ -8,7 +8,7 @@ const condensedPeakReports = tripReportData.map((peak) => {
     return trip.report;
   }).join(' ');
   return {name: peak.peakName, text: condensedReports};
-})
+});
 
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
@@ -33,7 +33,7 @@ const requestToneAnalysis = (text) => {
         resolve(toneResults);
       }
     });
-  })
+  });
 };
 
 const groupedAnalysis = condensedPeakReports.reduce(async (acc, peak) => {
@@ -56,5 +56,5 @@ groupedAnalysis.then(result => {
   fs.writeFile('./data/tone-analysis.json', output, 'utf8', (err) => {
     if (err) throw err;
     console.log('File was saved.');
-  })
-})
+  });
+});
