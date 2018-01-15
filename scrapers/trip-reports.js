@@ -29,13 +29,15 @@ const goToPageAndGetData = async (pageLink) => {
   } catch(e) {
     console.error(e);
   }
-}
+};
 
+console.log(`Scraping trip reports for ${peakUrls.length} peaks. This might take a couple minutes...`);
 
-const data = peakUrls.reduce(async (acc, pageLink) => {
+const data = peakUrls.reduce(async (acc, pageLink, idx) => {
   const dataArray = await acc;
   const peakReports = await goToPageAndGetData(pageLink);
 
+  console.log(`${idx + 1}. ${peakReports.peakName} scraped`);
   dataArray.push(peakReports);
   return dataArray;
 }, Promise.resolve([]));
@@ -43,9 +45,10 @@ const data = peakUrls.reduce(async (acc, pageLink) => {
 
 data.then(result => {
   const output = JSON.stringify(result, null, 2);
+  const fileNameToSave = 'trip-reports.json';
 
-  fs.writeFile('./data/trip-reports.json', output, 'utf8', (err) => {
+  fs.writeFile(`./data/${fileNameToSave}`, output, 'utf8', (err) => {
     if (err) throw err;
-    console.log('File was saved.');
-  })
-})
+    console.log(`Scraped trip report data saved to file: data/${fileNameToSave}`);
+  });
+});
