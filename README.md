@@ -23,3 +23,7 @@ The [nightmare](https://github.com/segmentio/nightmare) JavaScript library was u
 3. Analyze the trip report data using the command `node analyzer.js` from your terminal.
 
 4. To view sorted tone data, there is a sample script you can run from your terminal: `node results/sort-peaks.js`
+
+### Acknowledgments
+
+Thanks to [this blog post](https://hackernoon.com/nightmarishly-good-scraping-with-nightmare-js-and-async-await-b7b20a38438f), which helped guide me through using async/await with Nightmare.
